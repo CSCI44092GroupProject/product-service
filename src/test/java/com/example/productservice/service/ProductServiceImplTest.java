@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,6 +65,28 @@ class ProductServiceImplTest {
                 .category("Electronics")
                 .stock(50)
                 .build();
+    }
+
+    @Test
+    void getAllProducts_returnsEmptyList() {
+        when(productRepository.findAll()).thenReturn(List.of());
+
+        List<ProductResponse> result = productService.getAllProducts();
+
+        assertThat(result).isEmpty();
+        verify(productRepository, times(1)).findAll();
+    }
+
+    @Test
+    void getAllProducts_returnsList() {
+        when(productRepository.findAll()).thenReturn(List.of(product));
+        when(productMapper.toResponse(product)).thenReturn(response);
+
+        List<ProductResponse> result = productService.getAllProducts();
+
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getName()).isEqualTo("Laptop");
+        verify(productRepository, times(1)).findAll();
     }
 
     @Test

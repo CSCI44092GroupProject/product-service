@@ -10,6 +10,8 @@ import com.example.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -22,6 +24,14 @@ public class ProductServiceImpl implements ProductService {
         Product product = productMapper.toEntity(request);
         Product saved = productRepository.save(product);
         return productMapper.toResponse(saved);
+    }
+
+    @Override
+    public List<ProductResponse> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::toResponse)
+                .toList();
     }
 
     @Override
