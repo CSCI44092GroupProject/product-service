@@ -20,6 +20,10 @@
             <id>CS/2020/016</id>
             <name>Shehan Suraweera</name>
         </developer>
+        <developer>
+            <id>CS/2020/005</id>
+            <name>Pawan Perera</name>
+        </developer>
     </developers>
 
     <properties>
